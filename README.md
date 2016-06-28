@@ -1,10 +1,11 @@
-# reactBoilerplate
+# Ubication
 
-A barebones repo to get you started with Webpack, Babel, and React. 
+An application designed for creating location-based memos and reminders. Built with React/Redux, Google Maps API, Node, Express, MongoDB and deployed to Microsoft Azure.
+
 
 ## Installation
 
-`git clone https://github.com/kmeraz/reactBoilerplate`
+`git clone https://github.com/kmeraz/ubication`
 
 then
 
