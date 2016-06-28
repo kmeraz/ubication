@@ -7,7 +7,7 @@ class Main extends Component {
     let myLatLng;
     const gMap = new google.maps.Map(mapDiv[0], {
       center: { lat: 37.090, lng: -95.712 },
-      zoom: 6,
+      zoom: 2,
     });
 
     if (navigator.geolocation) {
