@@ -7,7 +7,15 @@ class Main extends Component {
   // user's current location
 
   componentDidMount() {
-    let myLatLng;
+    let currentLocation;
+  
+    const currentLocationMarker = ((currentLocation) => {
+      const marker = new google.maps.Marker({
+        map: gMap,
+        position: currentLocation,
+        animation: google.maps.Animation.BOUNCE,
+      });
+    });
 
     const mapDiv = document.getElementsByClassName('map');
     const gMap = new google.maps.Map(mapDiv[0], {
@@ -15,34 +23,22 @@ class Main extends Component {
       zoom: 2,
     });
 
+
     // If the user's browser has 'current location' capability,
     // the Map orients to the user's current location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        myLatLng = {
+        currentLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        console.log('this is latlng', myLatLng);
-        gMap.panTo(myLatLng);
+        gMap.panTo(currentLocation);
         gMap.setZoom(13);
+        currentLocationMarker(currentLocation);
       });
-
-      (function() {
-        const marker = new google.maps.Marker({
-          position: myLatLng,
-          map: gMap,
-          animation: google.maps.Animation.DROP,
-        });    
-        console.log('dog');    
-      })();
-
     } else {
-
-      alert('Looks like your settings prevent us from finding your location! :(');
-
+      alert('Looks like your settings prevent us from finding your location! Please change your browser settings');
     }
-
   }
 
   render() {
