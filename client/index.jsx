@@ -17,5 +17,5 @@ render(
       <Route path="/home" component={Home} />
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('body')
 );
