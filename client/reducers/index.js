@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux';
-import homeReducer from './homeReducer.js';
+import home from './homeReducer.js';
+import savedPlaces from './savedPlaces.js';
+import user from './user.js';
 
 
 const rootReducer = combineReducers({
-  homeReducer,
+  home,
+  savedPlaces,
+  user,
 });
 
 export default rootReducer;

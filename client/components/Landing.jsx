@@ -8,11 +8,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const Landing = () => (
  <div>
- <MuiThemeProvider muiTheme={getMuiTheme()}>
-   <Nav className="Nav" />
- </MuiThemeProvider>
+   <MuiThemeProvider muiTheme={getMuiTheme()}>
+     <Nav className="Nav" />
+   </MuiThemeProvider>
 
  </div>
-  );
+);
 
 export default Landing;
