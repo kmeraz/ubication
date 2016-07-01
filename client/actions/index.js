@@ -1,5 +1,17 @@
-export const SAVE_PLACE = 'SAVE_PLACE';
+import * as types from '../constants/ActionTypes.js';
 
-export function savePlace(data) {
-  return { type: SAVE_PLACE, data };
-}
+
+module.exports = {
+
+  savePlace: function(data) {
+    return { type: types.SAVE_PLACE, data };
+  },
+
+  updatePlaces: function(data) {
+    return { type: types.UPDATE_PLACES, data };
+  },
+
+  updateCurrentLocation: function(place) {
+    return { type: types.UPDATE_CURRENT_LOCATION, place };
+  },
+};

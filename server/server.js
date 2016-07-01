@@ -14,7 +14,9 @@ app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use(express.static(`${__dirname}/../client`));
+app.use('/home', express.static(`${__dirname}/../client`));
+app.use('/hello', express.static(`${__dirname}/../client/landing`));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

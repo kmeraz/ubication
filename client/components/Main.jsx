@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import actions from '../actions/index.js';
 
 
 class Main extends Component {
@@ -38,12 +39,12 @@ class Main extends Component {
         gMap.panTo(currentLocation);
         gMap.setZoom(13);
         currentLocationMarker(currentLocation);
+        this.props.updateCurrentLocation(currentLocation);
       });
     } else {
       alert('Looks like your settings prevent us from finding your location! Please change your browser settings');
     }
   }
-
 
   render() {
     return (
@@ -51,36 +52,40 @@ class Main extends Component {
       </div>
     );
   }
-  // const mapStateToProps = (state) => {
-  //   return {
-  //     current
-
-  //   }
-
-  // }
-
-
-  // const mapDispatchToProps = (dispatch) => {
-  //   return {
-  //     onSaveClick: (place, user) => {
-  //       axios({
-  //         method: 'post',
-  //         url: '/api/',
-  //         data: {
-  //           user: user,
-  //           place: place,
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
-  // Main.propTypes = {
-  //   onSaveClick: PropTypes.func.isRequired,
-
-  // }
-
 }
-export default Main;
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps)(Main);
+
+const mapStateToProps = (state) => {
+  return {
+    currentLocation: state.currentLocation,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSaveClick: (place, user) => {
+      console.log(place, user);
+      axios({
+        method: 'post',
+        url: '/api/places',
+        data: {
+          user: user,
+          place: place,
+        },
+      });
+    },
+
+    updateCurrentLocation: (currentLocation) => {
+      dispatch(actions.updateCurrentLocation(currentLocation));
+    },
+  };
+};
+
+Main.propTypes = {
+  onSaveClick: PropTypes.func.isRequired,
+  updateCurrentLocation: PropTypes.func.isRequired,
+  currentLocation: PropTypes.object,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(Main);
