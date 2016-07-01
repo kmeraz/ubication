@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+
 
 class Main extends Component {
 
@@ -8,12 +10,13 @@ class Main extends Component {
 
   componentDidMount() {
     let currentLocation;
-  
+
     const currentLocationMarker = ((currentLocation) => {
       const marker = new google.maps.Marker({
         map: gMap,
         position: currentLocation,
         animation: google.maps.Animation.BOUNCE,
+        title: 'Current Location',
       });
     });
 
@@ -41,12 +44,43 @@ class Main extends Component {
     }
   }
 
+
   render() {
     return (
       <div className="map">
       </div>
     );
   }
-}
+  // const mapStateToProps = (state) => {
+  //   return {
+  //     current
 
+  //   }
+
+  // }
+
+
+  // const mapDispatchToProps = (dispatch) => {
+  //   return {
+  //     onSaveClick: (place, user) => {
+  //       axios({
+  //         method: 'post',
+  //         url: '/api/',
+  //         data: {
+  //           user: user,
+  //           place: place,
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
+  // Main.propTypes = {
+  //   onSaveClick: PropTypes.func.isRequired,
+
+  // }
+
+}
 export default Main;
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps)(Main);
