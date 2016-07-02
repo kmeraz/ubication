@@ -29,7 +29,7 @@ const renderFullPage = (html, initialState) => {
         
         <!-- stylesheets -->
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>  
-        <link rel="stylesheet" href="./dist/bundle.css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" src="./dist/bundle.css" media="screen" title="no title" charset="utf-8">
 
         <link rel="shortcut icon" type="image/png" href="/assets/images/compassicon.png"/>
 

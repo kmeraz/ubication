@@ -17,9 +17,6 @@ import actions from '../actions/index.js';
 
 
 class Nav extends Component {
-  constructor(props) {
-     super(props);
-  }
 
   render() {
     const actions = [

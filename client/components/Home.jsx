@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import Nav from './Nav.jsx';
 import Main from './Main.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -7,13 +8,21 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
-const Home = () => (
-  <div>
-  <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Nav className="Nav" />
-  </MuiThemeProvider>
-    <Main />
-  </div>
-);
+class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Nav className="Nav" />
+      </MuiThemeProvider>
+        <Main />
+      </div>
+    );
+  }
+}
 
 export default Home;

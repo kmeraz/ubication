@@ -1,13 +1,11 @@
 import React from 'react';
-import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, hashHistory } from 'react-router';
 import rootReducer from '../../client/reducers/index.js';
 import Home from '../../client/components/Home';
 import renderFullPage from '../views/index.js';
-
+import getPlaces from '../controllers/places/getPlaces.js';
 import User from '../models/user.js';
 
 // Handler for rendering the index page with user data, if available
@@ -29,9 +27,7 @@ module.exports = (req, res) => {
     // Render the component to a string
     const html = renderToString(
       <Provider store={store}>
-        <Router history={hashHistory}>
-          <Route path="/" component={Home} />
-        </Router>
+        <Home />
       </Provider>
     );
 
@@ -40,32 +36,27 @@ module.exports = (req, res) => {
 
     // Send the rendered page back to the client as a String
     res.send(renderFullPage(html, initialState));
-
   };
 
   if (req.session.passport && req.session.passport.user) {
     user = {
-      // how to handle Facebook and Google both
-      // googleUserId: req.session.passport.user.id,
+      facebookUserId: req.session.passport.user.id,
       firstName: req.session.passport.user.name.givenName || null,
       lastName: req.session.passport.user.name.familyName || null,
     };
 
-    User.findOne({
-      userId: user,
-    })
-      .then((foundUser) => {
-        return foundUser.getPlaces();
-      })
-      .then((foundPlaces) => {
-        savedPlaces = foundPlaces;
+    User.find({
+      facebookUserId: user.facebookUserId,
+    }, (err, user) => {
+      if (err) {
+        console.log('error retrieving authenticated user', err);
+      } else {
+        savedPlaces = getPlaces(user.facebookUserId);
         sendInitialState();
-      });
+      }
+    });
   } else {
-    console.log('ciik stu');
-    express.static(`${__dirname}/../client/landing`);
-
-    // sendInitialState();
+    console.log('sending initial state blank');
+    sendInitialState();
   }
-
 };

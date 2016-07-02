@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes.js';
 
 const initialState = {
-  fbUserId: null,
+  facebookUserId: null,
   firstName: null,
   lastName: null,
 };
