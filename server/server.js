@@ -5,6 +5,8 @@ import cors from 'cors';
 import compression from 'compression';
 import router from './routers/router.js';
 import mongoose from 'mongoose';
+import secret from './config/secret.js';
+import session from 'express-session';
 mongoose.connect('mongodb://localhost/ubicationdb');
 
 const port = process.env.PORT || 8080;
@@ -13,6 +15,13 @@ const app = express();
 app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));
+
+app.use(session({
+  secret: secret,
+  resave: true,
+  saveUninitialized: false,
+}));
+
 
 app.use('/home', express.static(`${__dirname}/../client`));
 app.use('/hello', express.static(`${__dirname}/../client/landing`));

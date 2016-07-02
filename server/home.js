@@ -1,3 +1,5 @@
+export default function(initialState) => (
+    
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -27,6 +29,8 @@
      
     </body>
         <script>
+            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+       
         </script>
         <script src="https://use.fontawesome.com/8be68c5575.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
@@ -34,3 +38,4 @@
         
 </html>
 
+);

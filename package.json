@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server --inline --hot --content-base client/ & webpack -d --watch",
-    "dev-start": "webpack -d && babel-node server/server.js --presets es2015 & webpack --watch",
+    "dev-start": "webpack -d && NODE_ENV=dev babel-node server/server.js --presets es2015 & webpack --watch",
     "babel-start": "babel-node server/server.js --presets es2015"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.3.0",
     "express": "^4.14.0",
+    "express-session": "^1.13.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "jasmine-core": "^2.4.1",
     "material-ui": "^0.15.0",
