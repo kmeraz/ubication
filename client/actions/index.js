@@ -14,4 +14,7 @@ module.exports = {
   updateCurrentLocation: function(place) {
     return { type: types.UPDATE_CURRENT_LOCATION, place };
   },
+  setModalState: function(state) {
+    return { type: types.SET_MODAL_STATE, state };
+  },
 };

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server --inline --hot --content-base client/ & webpack -d --watch",
-    "dev-start": "webpack -d && babel-node server/server.js --presets es2015 & webpack -d --watch",
+    "dev-start": "webpack -d && babel-node server/server.js --presets es2015 & webpack --watch",
     "babel-start": "babel-node server/server.js --presets es2015"
   },
   "repository": {

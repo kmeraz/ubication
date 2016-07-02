@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import rootReducer from '../reducers/index.js';
 
+const initialState = window.__INITIAL_STATE__ || [];
 
 const configureStore = (initialState) => {
   const store = createStore(
