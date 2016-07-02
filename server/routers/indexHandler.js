@@ -1,10 +1,12 @@
 import React from 'react';
+import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from '../../client/reducers/index';
-import App from '../../client/components/App';
-import renderFullPage from '../views/index';
+import { Router, Route, hashHistory } from 'react-router';
+import rootReducer from '../../client/reducers/index.js';
+import Home from '../../client/components/Home';
+import renderFullPage from '../views/index.js';
 
 import User from '../models/user.js';
 
@@ -12,20 +14,24 @@ import User from '../models/user.js';
 // http://redux.js.org/docs/recipes/ServerRendering.html
 module.exports = (req, res) => {
   // Initialize user state if user is logged in
-  var user = {};
-  var savedPlaces = [];
+  let user = {};
+  let savedPlaces = [];
+  let modalState = false;
 
-  var sendInitialState = () => {
+  const sendInitialState = () => {
     // Create a new Redux store instance
     const store = createStore(rootReducer, {
       savedPlaces: savedPlaces,
       user: user,
+      modalState: modalState,
     });
 
     // Render the component to a string
     const html = renderToString(
       <Provider store={store}>
-      <App />
+        <Router history={hashHistory}>
+          <Route path="/" component={Home} />
+        </Router>
       </Provider>
     );
 
@@ -42,21 +48,24 @@ module.exports = (req, res) => {
       // how to handle Facebook and Google both
       // googleUserId: req.session.passport.user.id,
       firstName: req.session.passport.user.name.givenName || null,
-      lastName: req.session.passport.user.name.familyName || null
+      lastName: req.session.passport.user.name.familyName || null,
     };
 
     User.findOne({
       userId: user,
     })
-      .then(function(foundUser) {
+      .then((foundUser) => {
         return foundUser.getPlaces();
       })
-      .then(function(foundPlaces) {
+      .then((foundPlaces) => {
         savedPlaces = foundPlaces;
         sendInitialState();
       });
   } else {
-    sendInitialState();
+    console.log('ciik stu');
+    express.static(`${__dirname}/../client/landing`);
+
+    // sendInitialState();
   }
 
 };

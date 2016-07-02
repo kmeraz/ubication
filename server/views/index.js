@@ -37,18 +37,21 @@ const renderFullPage = (html, initialState) => {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     </head>
-    <body id="app">
-     
+    <div id="app">
+      <div>${html}</div>
+      </div>     
     </body>
-        <script>
-            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-       
-        </script>
-        <script src="https://use.fontawesome.com/8be68c5575.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js"></script>
-        <script src="./dist/bundle.js" ></script>
         
     </html>
+    <script>
+       window.console.error = function() {  
+       };
+       window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+     </script>
+     <script src="https://use.fontawesome.com/8be68c5575.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js"></script>
+     <script src="./dist/bundle.js" ></script>
+
   `;
 
 };

@@ -1,13 +1,14 @@
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
+import keys from '../config/fb.js';
+import User from '../models/user.js';
 
 if (process.env.NODE_ENV === 'dev') {
-  const keys = require('../config/fb'),
-      clientID = keys.clientID,
-      clientSecret = keys.clientSecret;
+    const clientID = keys.clientID;
+    const clientSecret = keys.clientSecret;
 } else {
-  const clientID = process.env.FB_CLIENT_ID,
-      clientSecret = process.env.FB_CLIENT_SECRET;
+  const clientID = process.env.FB_CLIENT_ID;
+  const clientSecret = process.env.FB_CLIENT_SECRET;
 }
 
 export const checkAuth = (req, res, next) => {
@@ -15,11 +16,11 @@ export const checkAuth = (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {
     console.log('user', req.user);
     console.log('session', req.session);
-    return next();
+    next();
   } else {
     console.log('no session');
     req.session.error = 'Bad credentials.';
-    res.redirect('/login');
+    res.redirect('/');
   }
 };
 
@@ -28,9 +29,8 @@ export const handleLogin = passport.authenticate('facebook', {
   scope: ['public_profile', 'email'],
 });
 
-export const handleCallback = passport.authenticate('facebook', {
-  successRedirect: '/home/',
-  failureRedirect: '/login',
+export const authenticateLogin = passport.authenticate('facebook', {
+  failureRedirect: '/',
 });
 
 passport.serializeUser((user, cb) => {
@@ -42,32 +42,46 @@ passport.deserializeUser((obj, cb) => {
 });
 
 passport.use(new FacebookStrategy.Strategy({
-  clientID: clientID,
-  clientSecret: clientSecret,
+  clientID: keys.clientID,
+  clientSecret: keys.clientSecret,
   callbackURL: '/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'link', 'email', 'first_name', 'last_name', 'picture', 'gender', 'verified', 'locale'],
 },
   (accessToken, refreshToken, profile, done) => {
   // Create a user if it is a new user, otherwise just get the user from the DB
-    // User
-    //   .findOrCreate({
-    //     where: {
-    //       facebookUserId: profile.id
-    //     },
-    //     defaults: {
-    //       firstName: profile.name.givenName,
-    //       lastName: profile.name.familyName
-    //     }
-    //   })
-    //   .spread(function(user, created) {
-    //     console.log('User data returned from User.findOrCreate: ', user.get({
-    //       plain: true
-    //     }));
-    //     console.log('New User Created? (t/f): ', created);
-    //   });
+    User.find({
+      facebookUserId: profile.id,
+    },
+      (err, user) => {
+        if (err) {
+          console.log('error connecting to db and finding user');
+        } else {
+          // If user === null then the user
+          // is not in the db. We will add them.
+
+          if (user === null) {
+            // create the newUser based off the
+            // user model
+
+            const newUser = User({
+              facebookUserId: profile.id,
+              firstName: profile.name.givenName,
+              lastName: profile.name.familyName,
+            });
+
+            // save the user to mongodb
+            newUser.save((err) => {
+              if (err) {
+                console.log('error saving the new user to db');
+              } else {
+                console.log('User created!', newUser);
+              }
+            });
+          }
+        }
+      });
 
     return done(null, profile);
-  }));
-
-
+  })
+);
 
