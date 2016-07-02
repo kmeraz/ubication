@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
+import passport from 'passport';
 import compression from 'compression';
 import router from './routers/router.js';
 import mongoose from 'mongoose';
@@ -22,9 +23,12 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/home', express.static(`${__dirname}/../client`));
-app.use('/hello', express.static(`${__dirname}/../client/landing`));
+router(app, express);
+// app.use('/home', express.static(`${__dirname}/../client`));
+// app.use('/hello', express.static(`${__dirname}/../client/landing`));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

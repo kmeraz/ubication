@@ -6,6 +6,7 @@ import getPlaces from '../controllers/places/getPlaces.js';
 import loginUser from '../controllers/users/loginUser.js';
 
 let result;
+
 router.route('/user')
   .get((req, res) => {
     result = loginUser(req.query.userId);

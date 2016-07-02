@@ -1,13 +1,25 @@
-export default function(initialState) => (
-    
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> 
+/*
+Server-side rendering prevents the client from viewing sensitive user information.
+Necessary user information (first name, last name, picture, id) is passed
+to the initial state of the app on the client side, if the user is logged in.
+Note:
+- The entry React components (Provider, App) are injected into the page.
+- The initialState of the app is saved in window.__INITIAL_STATE__.
+http://redux.js.org/docs/recipes/ServerRendering.html
+*/
 
-<html class="no-js"> <!--<![endif]-->
-    <head>
+
+const renderFullPage = (html, initialState) => {
+
+  return `
+    <!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> 
+
+    <html class="no-js"> <!--<![endif]-->
+      <head>
         <title>Ubication</title>
 
         <!-- meta -->
@@ -36,6 +48,9 @@ export default function(initialState) => (
         <script src="https://maps.googleapis.com/maps/api/js"></script>
         <script src="./dist/bundle.js" ></script>
         
-</html>
+    </html>
+  `;
 
-);
+};
+
+export default renderFullPage;
