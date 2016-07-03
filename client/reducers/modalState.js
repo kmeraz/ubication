@@ -5,7 +5,9 @@ const initialState = {};
 export default function modalState(state = initialState, action) {
   switch (action.type) {
     case types.SET_MODAL_STATE:
-      return action.state;
+      return Object.assign({}, state, {
+        open: action.state,
+      });
     default:
       return state;
   }

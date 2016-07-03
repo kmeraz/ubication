@@ -14,7 +14,9 @@ module.exports = (req, res) => {
   // Initialize user state if user is logged in
   let user = {};
   let savedPlaces = [];
-  let modalState = false;
+  let modalState = {
+    open: false,
+  };
 
   const sendInitialState = () => {
     // Create a new Redux store instance

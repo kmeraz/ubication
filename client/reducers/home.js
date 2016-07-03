@@ -8,10 +8,6 @@ export default function home(state = initialState, action) {
       return action.currentLocation;
     case types.UPDATE_CURRENT_LOCATION:
       return action.place;
-    case types.SET_MODAL_STATE:
-      return Object.assign({}, state, {
-        modalState: action.state,
-      });
     default:
       return state;
   }

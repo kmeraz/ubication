@@ -11,32 +11,6 @@ if (process.env.NODE_ENV === 'dev') {
   const clientSecret = process.env.FB_CLIENT_SECRET;
 }
 
-export const checkAuth = (req, res, next) => {
-  if (req.session.passport ? req.session.passport.user : false) {
-    console.log('user', req.user);
-    console.log('session', req.session);
-    return next();
-  } else {
-    console.log('no session');
-    req.session.error = 'Bad credentials.';
-    res.redirect('/login');
-  }
-};
-
-export const handleLogin = passport.authenticate('facebook');
-
-export const authenticateLogin = passport.authenticate('facebook', {
-  failureRedirect: '/',
-});
-
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
-});
-
 passport.use(new FacebookStrategy.Strategy({
   clientID: keys.clientID,
   clientSecret: keys.clientSecret,
@@ -80,4 +54,35 @@ passport.use(new FacebookStrategy.Strategy({
     return done(null, profile);
   })
 );
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((obj, cb) => {
+  cb(null, obj);
+});
+
+export const checkAuth = (req, res, next) => {
+  if (req.session.passport ? req.session.passport.user : false) {
+    console.log('user', req.user);
+    console.log('session', req.session);
+    return next();
+  } else {
+    console.log('no session');
+    req.session.error = 'Bad credentials.';
+    res.redirect('/login');
+  }
+};
+
+export const handleLogin = passport.authenticate('facebook');
+
+export const authenticateLogin = passport.authenticate('facebook', {
+  successRedirect: '/home/',
+  failureRedirect: '/login',
+});
+
+
+
+
 

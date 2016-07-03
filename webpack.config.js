@@ -97,7 +97,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('test'),
     }),
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('[name].bundle.css'),
   ],
   node: {
     net: 'empty',

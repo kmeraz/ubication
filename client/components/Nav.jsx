@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
   console.log('this is modalstate', state.modalState);
   return {
     currentLocation: state.home.currentLocation,
-    modalState: state.modalState,
+    modalState: state.modalState.open,
   };
 };
 
