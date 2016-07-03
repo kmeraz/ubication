@@ -13,23 +13,33 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import Avatar from 'material-ui/Avatar';
+
+
 import actions from '../actions/index.js';
 import addPlace from '../controllers/addPlace.js';
 
 
 class Nav extends Component {
 
-
   handleSave() {
-    
     this.props.saveWithinModal(this.props.user,
       this.props.currentLocation,
       this.props.currentNoteText
       );
-  };
+  }
 
 
   render() {
+
+    const avatar = [
+        <Avatar
+          src={this.props.user.photo_url}
+          size={30}
+          style={{ marginTop: '1em' }}
+        />,
+    ];
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -47,6 +57,7 @@ class Nav extends Component {
     return (
       <div>
         <AppBar className="appBar"
+          children={avatar}
           title="Ubication"
           style={{ color: 'white' }}
           iconElementLeft={<i className="fa fa-car fa-2x" aria-hidden="true"></i>}
@@ -57,7 +68,7 @@ class Nav extends Component {
                   }
                   targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                >
+                >      
                   <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
                   <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
                   <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } />

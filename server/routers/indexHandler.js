@@ -45,6 +45,7 @@ module.exports = (req, res) => {
       facebookUserId: req.session.passport.user.id,
       firstName: req.session.passport.user.name.givenName || null,
       lastName: req.session.passport.user.name.familyName || null,
+      photo_url: req.session.passport.user.photos[0].value || null,
     };
 
     User.find({

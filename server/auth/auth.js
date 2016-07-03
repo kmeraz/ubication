@@ -15,7 +15,7 @@ passport.use(new FacebookStrategy.Strategy({
   clientID: keys.clientID,
   clientSecret: keys.clientSecret,
   callbackURL: '/auth/facebook/callback',
-  profileFields: ['id', 'displayName', 'link', 'email', 'first_name', 'last_name', 'picture', 'gender', 'verified', 'locale'],
+  profileFields: ['id', 'displayName', 'link', 'email', 'first_name', 'last_name', 'picture.type(normal)', 'gender', 'verified', 'locale'],
 },
   (accessToken, refreshToken, profile, done) => {
   // Create a user if it is a new user, otherwise just get the user from the DB
@@ -28,7 +28,6 @@ passport.use(new FacebookStrategy.Strategy({
         } else {
           // If user === null then the user
           // is not in the db. We will add them.
-          console.log('this is user inside Strategy', user=== null);
           if (user.length === 0) {
             // create the newUser based off the
             // user model
@@ -37,6 +36,7 @@ passport.use(new FacebookStrategy.Strategy({
               facebookUserId: profile.id,
               firstName: profile.name.givenName,
               lastName: profile.name.familyName,
+              photo_url: profile.photos[0].value,
             });
 
             // save the user to db
