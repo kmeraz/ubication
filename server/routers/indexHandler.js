@@ -17,6 +17,7 @@ module.exports = (req, res) => {
   let modalState = {
     open: false,
   };
+  let view = 'home';
 
   const sendInitialState = () => {
     // Create a new Redux store instance
@@ -24,6 +25,7 @@ module.exports = (req, res) => {
       savedPlaces: savedPlaces,
       user: user,
       modalState: modalState,
+      view: view,
     });
 
     // Render the component to a string
