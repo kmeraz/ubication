@@ -28,8 +28,8 @@ passport.use(new FacebookStrategy.Strategy({
         } else {
           // If user === null then the user
           // is not in the db. We will add them.
-
-          if (user === null) {
+          console.log('this is user inside Strategy', user=== null);
+          if (user.length === 0) {
             // create the newUser based off the
             // user model
 

@@ -8,6 +8,12 @@ export default function home(state = initialState, action) {
       return action.currentLocation;
     case types.UPDATE_CURRENT_LOCATION:
       return action.place;
+    case types.MODAL_SUBMIT:
+      return action.data;
+    case types.CURRENT_NOTE_TEXT:
+      return Object.assign({}, state, {
+        currentNoteText: action.currentNoteText,
+      });
     default:
       return state;
   }

@@ -14,7 +14,15 @@ module.exports = {
   updateCurrentLocation: function(place) {
     return { type: types.UPDATE_CURRENT_LOCATION, place };
   },
+
   modalSetState: function(state) {
     return { type: types.SET_MODAL_STATE, state };
+  },
+
+  saveWithinModal: function(data) {
+    return { type: types.SAVE_WITHIN_MODAL, data };
+  },
+  currentNoteText: function(currentNoteText) {
+    return { type: types.CURRENT_NOTE_TEXT, currentNoteText };
   },
 };

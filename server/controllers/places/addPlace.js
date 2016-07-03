@@ -2,9 +2,9 @@ import Place from '../../models/place.js';
 
 const addPlace = (user, myLatLng, note) => {
   Place.create({
-    userId: user,
-    lat: myLatLng.lat,
-    lng: myLatLng.lng,
+    facebookUserId: user,
+    latitude: myLatLng.lat,
+    longitude: myLatLng.lng,
     note: note,
   }, (err, place) => {
     if (err) {

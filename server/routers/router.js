@@ -34,9 +34,21 @@ module.exports = (app, express) => {
     });
   });
 
+  // app.get('/api/places', auth.checkAuth, getPlaces);
+  // app.get('/api/places', getPlaces);
+  app.post('/api/places', auth.checkAuth, (req, res) => {
+    console.log('this is req.body', req.body);
+    const result = addPlace(req.body.facebookUserId,
+      req.body.currentLocation,
+      req.body.note);
+    res.send('cool', result);
+  });
 
-
-  app.get('/api/places', auth.checkAuth, getPlaces);
-  app.post('/api/places', auth.checkAuth, addPlace);
+  app.get('/api/places', (req, res) => {
+    // console.log(req.body);
+    console.log('success in home/api/places');
+    // addPlace);
+    res.send('cool');
+  });
   app.delete('/api/places', auth.checkAuth, deletePlace);
 };

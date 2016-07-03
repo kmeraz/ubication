@@ -14,22 +14,33 @@ import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import actions from '../actions/index.js';
+import addPlace from '../controllers/addPlace.js';
 
 
 class Nav extends Component {
+
+
+  handleSave() {
+    
+    this.props.saveWithinModal(this.props.user,
+      this.props.currentLocation,
+      this.props.currentNoteText
+      );
+  };
+
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        secondary={true}
         onTouchTap={this.props.modalClose}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
-        disabled={true}
-        onTouchTap={this.props.submitWithinModal}
+        disabled={false}
+        onTouchTap={this.handleSave.bind(this)}
       />,
     ];
 
@@ -54,7 +65,7 @@ class Nav extends Component {
               }
         />
         <Dialog
-          title="Enter a note!"
+          title="Save Your Spot!"
           actions={actions}
           modal={true}
           open={this.props.modalState}
@@ -62,6 +73,8 @@ class Nav extends Component {
           <TextField
             hintText=""
             floatingLabelText="Make a note for yourself!"
+            fullWidth={true}
+            onChange={this.props.grabNoteText.bind(this)}
           />
         </Dialog>
       </div>
@@ -70,26 +83,23 @@ class Nav extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('this is state', state.home.lat, state.home.lng);
-  console.log('this is modalstate', state.modalState);
   return {
-    currentLocation: state.home.currentLocation,
+    user: state.user,
+    currentLocation: {
+      lat: state.home.lat,
+      lng: state.home.lng,
+    },
     modalState: state.modalState.open,
+    currentNoteText: state.home.currentNoteText,
   };
 };
 
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSaveClick: (userId, myLatLng, note) => {
 
-      axios.post('http:localhost:8080/api/places', {
-        data: {
-          userId: userId,
-          myLatLng: place,
-          note: note,
-        },
-      });
+    grabNoteText: (e) => {
+      dispatch(actions.currentNoteText(e.currentTarget.value));
     },
 
     modalOpen: () => {
@@ -97,25 +107,26 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     modalClose: () => {
-      // dispatch(actions.modalInput(''));
       dispatch(actions.modalSetState(false));
     },
 
-    submitWithinModal: (state) => {
-      console.log('this is state inside of setModalState', state);
-      dispatch(actions.modalSubmit(state));
+    saveWithinModal: (user, place, currentNoteText) => {
+      dispatch(actions.modalSetState(false));
+      addPlace(user, place, currentNoteText);
     },
 
   };
 };
 
 Nav.propTypes = {
+  user: PropTypes.object,
   currentLocation: PropTypes.object,
-  onSaveClick: PropTypes.func.isRequired,
+  grabNoteText: PropTypes.func.isRequired,
   modalState: PropTypes.bool,
   modalOpen: PropTypes.func.isRequired,
   modalClose: PropTypes.func.isRequired,
-  submitWithinModal: PropTypes.func.isRequired,
+  saveWithinModal: PropTypes.func.isRequired,
+  currentNoteText: PropTypes.string,
 };
 
 export default connect(

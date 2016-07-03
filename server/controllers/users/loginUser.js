@@ -1,14 +1,15 @@
 import User from '../../models/user.js';
 
-const loginUser = (token) => {
+const loginUser = (facebookUserId, firstName, lastName) => {
   User.findOne({
-    token: token,
+    facebookUserId: facebookUserId,
   }, (err, user) => {
     console.log('inside loginUser', err, user);
 
     if (user === null) {
       User.create({
-        token: token,
+        facebookUserId: facebookUserId,
+
       }, (err, user) => {
         if (err) {
           console.log('The user is new and we could not create a new entry in the database');
