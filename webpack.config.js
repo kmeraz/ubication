@@ -28,7 +28,7 @@ module.exports = {
     publicPath: 'client/dist',
 
     // `filename` tells Webpack what to call the file/files it outputs.
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
 
   // `module` is an object with options for how Webpack processes the files it loads
@@ -97,7 +97,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('test'),
     }),
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('[name].bundle.css'),
   ],
   node: {
     net: 'empty',

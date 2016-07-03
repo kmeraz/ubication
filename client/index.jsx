@@ -1,21 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore.js';
+import { createStore } from 'redux';
 import styles from './styles/entry.scss';
-import Landing from './components/Landing.jsx';
 import Home from './components/Home.jsx';
-import actions from './actions/index.js';
+import rootReducer from './reducers/index.js';
+
+const initialState = window.__INITIAL_STATE__;
+
+const configureStore = () => {
+  const store = createStore(rootReducer, initialState,
+    window.devToolsExtension && window.devToolsExtension()
+  );
+  return store;
+};
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/" component={Landing} />
-      <Route path="/home" component={Home} />
-    </Router>
+    <Home />
   </Provider>,
-  document.getElementById('body')
+  document.getElementById('app')
 );

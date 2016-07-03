@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Nav from './Nav.jsx';
 import Main from './Main.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -10,7 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 const Home = () => (
   <div>
   <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Nav className="Nav"/>
+    <Nav className="Nav" />
   </MuiThemeProvider>
     <Main />
   </div>

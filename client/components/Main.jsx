@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import actions from '../actions/index.js';
+
 
 class Main extends Component {
 
@@ -8,12 +11,13 @@ class Main extends Component {
 
   componentDidMount() {
     let currentLocation;
-  
+
     const currentLocationMarker = ((currentLocation) => {
       const marker = new google.maps.Marker({
         map: gMap,
         position: currentLocation,
         animation: google.maps.Animation.BOUNCE,
+        title: 'Current Location',
       });
     });
 
@@ -35,6 +39,7 @@ class Main extends Component {
         gMap.panTo(currentLocation);
         gMap.setZoom(13);
         currentLocationMarker(currentLocation);
+        this.props.updateCurrentLocation(currentLocation);
       });
     } else {
       alert('Looks like your settings prevent us from finding your location! Please change your browser settings');
@@ -49,4 +54,38 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    currentLocation: state.currentLocation,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSaveClick: (place, user) => {
+      console.log(place, user);
+      axios({
+        method: 'post',
+        url: '/api/places',
+        data: {
+          user: user,
+          place: place,
+        },
+      });
+    },
+
+    updateCurrentLocation: (currentLocation) => {
+      dispatch(actions.updateCurrentLocation(currentLocation));
+    },
+  };
+};
+
+Main.propTypes = {
+  onSaveClick: PropTypes.func.isRequired,
+  updateCurrentLocation: PropTypes.func.isRequired,
+  currentLocation: PropTypes.object,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(Main);

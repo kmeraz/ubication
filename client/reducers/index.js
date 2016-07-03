@@ -1,9 +1,14 @@
 import { combineReducers } from 'redux';
-import homeReducer from './homeReducer.js';
-
+import home from './home.js';
+import savedPlaces from './savedPlaces.js';
+import user from './user.js';
+import modalState from './modalState.js';
 
 const rootReducer = combineReducers({
-  homeReducer,
+  home,
+  savedPlaces,
+  user,
+  modalState,
 });
 
 export default rootReducer;
