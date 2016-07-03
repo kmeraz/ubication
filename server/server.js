@@ -34,7 +34,6 @@ app.use(passport.initialize());
 
 
 app.use(passport.session());
-app.use('/', express.static(`${__dirname}/../client/landing`));
 
 router(app, express);
 // app.use('/home', express.static(`${__dirname}/../client`));

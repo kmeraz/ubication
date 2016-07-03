@@ -25,17 +25,17 @@ module.exports = (req, res) => {
     });
 
     // Render the component to a string
-    const html = renderToString(
-      <Provider store={store}>
-        <Home />
-      </Provider>
-    );
+    // const html = renderToString(
+    //   <Provider store={store}>
+    //     <Home />
+    //   </Provider>
+    // );
 
     // Grab the initial state from our Redux store
     const initialState = store.getState();
 
     // Send the rendered page back to the client as a String
-    res.send(renderFullPage(html, initialState));
+    res.send(renderFullPage(initialState));
   };
 
   if (req.session.passport && req.session.passport.user) {

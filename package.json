@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server --inline --hot --content-base client/ & webpack -d --watch",
-    "dev-start": "webpack -d && NODE_ENV=dev nodemon precompile.js & webpack --watch",
+    "dev-start": "webpack -d && NODE_ENV=dev nodemon precompile.js --debug & webpack --watch",
     "babel-start": "babel-node server/server.js --presets es2015"
   },
   "repository": {
@@ -43,6 +43,7 @@
     "nodemon": "^1.9.2",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
+    "path": "^0.12.7",
     "postcss-loader": "^0.9.1",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",

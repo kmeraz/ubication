@@ -71,9 +71,10 @@ class Nav extends Component {
 
 const mapStateToProps = (state) => {
   console.log('this is state', state.home.lat, state.home.lng);
+  console.log('this is modalstate', state.modalState);
   return {
     currentLocation: state.home.currentLocation,
-    modalState: state.home.modalState,
+    modalState: state.modalState,
   };
 };
 

@@ -12,22 +12,18 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 export const checkAuth = (req, res, next) => {
-  console.log(req);
-  if (req.session.passport && req.session.passport.user) {
+  if (req.session.passport ? req.session.passport.user : false) {
     console.log('user', req.user);
     console.log('session', req.session);
-    next();
+    return next();
   } else {
     console.log('no session');
     req.session.error = 'Bad credentials.';
-    res.redirect('/');
+    res.redirect('/login');
   }
 };
 
-export const handleLogin = passport.authenticate('facebook', {
-  authType: 'rerequest',
-  scope: ['public_profile', 'email'],
-});
+export const handleLogin = passport.authenticate('facebook');
 
 export const authenticateLogin = passport.authenticate('facebook', {
   failureRedirect: '/',
@@ -69,7 +65,7 @@ passport.use(new FacebookStrategy.Strategy({
               lastName: profile.name.familyName,
             });
 
-            // save the user to mongodb
+            // save the user to db
             newUser.save((err) => {
               if (err) {
                 console.log('error saving the new user to db');
