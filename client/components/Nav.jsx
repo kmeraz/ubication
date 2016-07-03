@@ -34,37 +34,37 @@ class Nav extends Component {
     ];
 
     return (
-      <AppBar className="appBar"
-        title="Ubication"
-        style={{ color: 'white' }}
-        iconElementLeft={<i className="fa fa-car fa-2x" aria-hidden="true"></i>}
-        iconElementRight={
-              <IconMenu
-                iconButtonElement={
-                  <IconButton><MoreVertIcon /></IconButton>
-                }
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
-                 <div>
-                  <Dialog
-                    title="Dialog With Actions"
-                    actions={actions}
-                    modal={true}
-                    open={this.props.modalState}
-                  >
-                  <TextField
-                    hintText=""
-                    floatingLabelText="Make a note for yourself!"
-                  />
-                  </Dialog>
-                  </div>
-                <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
-                <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } />
-              </IconMenu>
-            }
-      />
+      <div>
+        <AppBar className="appBar"
+          title="Ubication"
+          style={{ color: 'white' }}
+          iconElementLeft={<i className="fa fa-car fa-2x" aria-hidden="true"></i>}
+          iconElementRight={
+                <IconMenu
+                  iconButtonElement={
+                    <IconButton><MoreVertIcon /></IconButton>
+                  }
+                  targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                  <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
+                  <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
+                  <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } />
+                </IconMenu>
+              }
+        />
+        <Dialog
+          title="Enter a note!"
+          actions={actions}
+          modal={true}
+          open={this.props.modalState}
+        >
+          <TextField
+            hintText=""
+            floatingLabelText="Make a note for yourself!"
+          />
+        </Dialog>
+      </div>
     );
   }
 }
@@ -97,6 +97,7 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     modalClose: () => {
+      // dispatch(actions.modalInput(''));
       dispatch(actions.modalSetState(false));
     },
 
