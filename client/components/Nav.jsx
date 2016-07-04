@@ -69,7 +69,9 @@ class Nav extends Component {
                 >
                   <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
                   <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
-                  <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } />
+                  <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } 
+                    href="/logout"
+                  />
                 </IconMenu>
               }
         />
