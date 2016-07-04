@@ -1,18 +1,10 @@
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
 import User from '../models/user.js';
+import keys from './fb.js';
 
-let clientID;
-let clientSecret;
-
-if (process.env.NODE_ENV === 'dev') {
-    const keys = require(__dirname + '../config/fb.js');
-    clientID = keys.clientID;
-    clientSecret = keys.clientSecret;
-} else {
-  clientID = process.env.FB_CLIENT_ID;
-  clientSecret = process.env.FB_CLIENT_SECRET;
-}
+const clientID = process.env.FB_CLIENT_ID || keys.FB_CLIENT_ID;
+const clientSecret = process.env.FB_CLIENT_SECRET || keys.FB_CLIENT_SECRET;
 
 passport.use(new FacebookStrategy.Strategy({
   clientID: clientID,
