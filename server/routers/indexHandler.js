@@ -1,12 +1,8 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 import rootReducer from '../../client/reducers/index.js';
-import Home from '../../client/components/Home';
 import renderFullPage from '../views/index.js';
 import getPlaces from '../controllers/places/getPlaces.js';
-import User from '../models/user.js';
 
 // Handler for rendering the index page with user data, if available
 // http://redux.js.org/docs/recipes/ServerRendering.html
