@@ -9,6 +9,9 @@
     "dev-start": "webpack -d && NODE_ENV=dev nodemon precompile.js --debug & webpack --watch",
     "babel-start": "babel-node server/server.js --presets es2015"
   },
+  "engines": {
+      "node": "5.8.0"
+    },
   "repository": {
     "type": "git"
   },
