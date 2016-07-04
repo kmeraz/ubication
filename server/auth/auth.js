@@ -1,9 +1,9 @@
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
-import keys from '../config/fb.js';
 import User from '../models/user.js';
 
 if (process.env.NODE_ENV === 'dev') {
+    const keys = require('../config/fb.js');
     const clientID = keys.clientID;
     const clientSecret = keys.clientSecret;
 } else {

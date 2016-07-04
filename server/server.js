@@ -7,7 +7,6 @@ import cors from 'cors';
 import compression from 'compression';
 import router from './routers/router.js';
 import mongoose from 'mongoose';
-import secret from './config/secret.js';
 import session from 'express-session';
 
 const mongoDB_URI = process.env.MONGODB_URI || 'mongodb://localhost/ubicationdb';
@@ -23,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('viewFinder'));
 
 const port = process.env.PORT || 8080;
+
+const secret = process.env.SECRET || require('./config/secret.js');
 
 app.use(session());
 app.use(morgan('dev'));
