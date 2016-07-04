@@ -36,7 +36,7 @@ const renderFullPage = (initialState) => {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
        <script src="https://use.fontawesome.com/8be68c5575.js"></script>
-       <script src="https://maps.googleapis.com/maps/api/js"></script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXogEB17R10HugGQAw9dEHBDIOlihifbg"></script>
        <script src="/dist/main.bundle.js" ></script>
       </body>
     </html>
