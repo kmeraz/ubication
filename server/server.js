@@ -9,7 +9,11 @@ import router from './routers/router.js';
 import mongoose from 'mongoose';
 import secret from './config/secret.js';
 import session from 'express-session';
-mongoose.connect('mongodb://localhost/ubicationdb');
+
+const mongoDB_URI = process.env.MONGODB_URI || 'mongodb://localhost/ubicationdb';
+
+mongoose.connect(mongoDB_URI);
+
 const app = express();
 app.use(compression());
 app.use(cors());

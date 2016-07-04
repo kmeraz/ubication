@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getPlaces = (user) => {
-  axios.get('http://localhost:8080/api/places', {
+  axios.get('http://ubication.herokuapp.com/api/places', {
     facebookUserId: user.facebookUserId,
   })
   .then((response) => {
