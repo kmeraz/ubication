@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const addPlace = (user, currentLocation, note) => {
   console.log('user, currentLoc, note', user, currentLocation, note);
-  axios.post('http://localhost:8080/api/places', {
+  axios.post('http://ubication.herokuapp.com/api/places', {
     facebookUserId: user.facebookUserId,
     currentLocation: {
       lat: currentLocation.lat,
