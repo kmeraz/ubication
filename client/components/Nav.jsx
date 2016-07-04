@@ -68,7 +68,6 @@ class Nav extends Component {
                   anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
                   <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
-                  <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
                   <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } 
                     href="/logout"
                   />
