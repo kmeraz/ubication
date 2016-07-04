@@ -5,7 +5,7 @@
   "main": "./client/index.html",
   "scripts": {
     "test": "karma start",
-    "start": "webpack-dev-server --inline --hot --content-base client/ & webpack -d --watch",
+    "start": "webpack && node precompile.js",
     "dev-start": "webpack -d && NODE_ENV=dev nodemon precompile.js --debug & webpack --watch",
     "babel-start": "babel-node server/server.js --presets es2015"
   },
