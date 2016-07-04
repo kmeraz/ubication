@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-
-import FontIcon from 'material-ui/FontIcon';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import MyLocation from 'material-ui/svg-icons/maps/my-location';
+import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -14,7 +14,6 @@ import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
-
 
 import actions from '../actions/index.js';
 import addPlace from '../controllers/addPlace.js';
@@ -31,7 +30,6 @@ class Nav extends Component {
 
 
   render() {
-
     const avatar = [
         <Avatar
           src={this.props.user.photo_url}
@@ -68,13 +66,14 @@ class Nav extends Component {
                   }
                   targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                >      
+                >
                   <MenuItem primaryText="Save Pin" onTouchTap={this.props.modalOpen} />
                   <MenuItem primaryText="Refresh" onTouchTap={() => console.log('refreshing') } />
                   <MenuItem primaryText="Sign out" onTouchTap={() => console.log('signing out') } />
                 </IconMenu>
               }
         />
+
         <Dialog
           title="Save Your Spot!"
           actions={actions}
@@ -88,6 +87,22 @@ class Nav extends Component {
             onChange={this.props.grabNoteText.bind(this)}
           />
         </Dialog>
+
+        <Tabs>
+          <Tab
+            icon={<MyLocation />}
+            label="Current Location"
+            onActive={this.props.viewHome}
+          />
+          <Tab
+            icon={<TurnedIn />}
+            label="My Pins"
+            onActive={this.props.viewSaved}
+          />
+
+        </Tabs>
+
+
       </div>
     );
   }
@@ -126,6 +141,13 @@ const mapDispatchToProps = (dispatch) => {
       addPlace(user, place, currentNoteText);
     },
 
+    viewHome: () => {
+      dispatch(actions.changeView('home'));
+    },
+
+    viewSaved: () => {
+      dispatch(actions.changeView('saved'));
+    },
   };
 };
 
@@ -138,6 +160,8 @@ Nav.propTypes = {
   modalClose: PropTypes.func.isRequired,
   saveWithinModal: PropTypes.func.isRequired,
   currentNoteText: PropTypes.string,
+  viewHome: PropTypes.func.isRequired,
+  viewSaved: PropTypes.func.isRequired,
 };
 
 export default connect(

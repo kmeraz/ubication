@@ -47,8 +47,10 @@ module.exports = (app, express) => {
   app.get('/api/places', (req, res) => {
     // console.log(req.body);
     console.log('success in home/api/places');
-    // addPlace);
-    res.send('cool');
+    // addPlace
+
+    const result = getPlaces(req.body.facebookUserId);
+    res.send(result);
   });
   app.delete('/api/places', auth.checkAuth, deletePlace);
 };

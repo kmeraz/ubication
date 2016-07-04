@@ -17,6 +17,7 @@ module.exports = (req, res) => {
   let modalState = {
     open: false,
   };
+  let view = 'home';
 
   const sendInitialState = () => {
     // Create a new Redux store instance
@@ -24,18 +25,12 @@ module.exports = (req, res) => {
       savedPlaces: savedPlaces,
       user: user,
       modalState: modalState,
+      view: view,
     });
-
-    // Render the component to a string
-    // const html = renderToString(
-    //   <Provider store={store}>
-    //     <Home />
-    //   </Provider>
-    // );
 
     // Grab the initial state from our Redux store
     const initialState = store.getState();
-
+    console.log('savedPlaces', savedPlaces);
     // Send the rendered page back to the client as a String
     res.send(renderFullPage(initialState));
   };
@@ -48,16 +43,15 @@ module.exports = (req, res) => {
       photo_url: req.session.passport.user.photos[0].value || null,
     };
 
-    User.find({
-      facebookUserId: user.facebookUserId,
-    }, (err, user) => {
-      if (err) {
-        console.log('error retrieving authenticated user', err);
-      } else {
-        savedPlaces = getPlaces(user.facebookUserId);
-        sendInitialState();
-      }
+    getPlaces(user.facebookUserId)
+    .then((data) => {
+      savedPlaces = data;
+      console.log('data within promise', data);
+      console.log('this is saved places', savedPlaces);
+      sendInitialState();
     });
+
+    
   } else {
     console.log('sending initial state blank');
     sendInitialState();

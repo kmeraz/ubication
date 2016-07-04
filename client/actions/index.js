@@ -22,7 +22,12 @@ module.exports = {
   saveWithinModal: function(data) {
     return { type: types.SAVE_WITHIN_MODAL, data };
   },
+
   currentNoteText: function(currentNoteText) {
     return { type: types.CURRENT_NOTE_TEXT, currentNoteText };
+  },
+
+  changeView: function(view) {
+    return { type: types.CHANGE_VIEW, view };
   },
 };
