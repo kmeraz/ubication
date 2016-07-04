@@ -12,8 +12,8 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 passport.use(new FacebookStrategy.Strategy({
-  clientID: keys.clientID,
-  clientSecret: keys.clientSecret,
+  clientID: clientID,
+  clientSecret: clientSecret,
   callbackURL: '/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'link', 'email', 'first_name', 'last_name', 'picture.type(normal)', 'gender', 'verified', 'locale'],
 },
