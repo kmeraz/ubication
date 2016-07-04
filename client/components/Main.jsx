@@ -23,7 +23,7 @@ class Main extends Component {
 
     const mapDiv = document.getElementsByClassName('map');
     const gMap = new google.maps.Map(mapDiv[0], {
-      center: { lat: 37.090, lng: -95.712 },
+      center: { lat: 37.7699355, lng: -122.4491386 },
       zoom: 2,
     });
 
