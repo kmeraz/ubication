@@ -1,6 +1,6 @@
 # Ubication
 
-An application designed for creating location-based memos and reminders. Built with React/Redux, Google Maps API, Node, Express, MongoDB and deployed to Microsoft Azure.
+An application designed for creating location-based memos and reminders to help you remember your parking spot. Built with React/Redux, Google Maps API, Material-UI, Node, Express, Passport, Mongoose and MongoDB. Deployed to Heroku.
 
 
 ## Installation
