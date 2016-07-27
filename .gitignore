@@ -4,3 +4,5 @@ server/config
 server.crt
 server.csr
 server.key
+.DS_Store
+client/assets/.DS_Store
